@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  	<head>
+	
+	<!--We will use this one for experimentation.-->
+    <!-- Required meta tags -->
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<title>Sign In</title>
+
+		<style> /*Inline CSS */
+				.jumbotron{
+				background-image: linear-gradient(to bottom right, blue, red, black); 
+				background-repeat: no-repeat; /* Do not repeat the image */
+				background-size: cover; /* Resize the background image to cover the entire container */
+				height: 100vh;
+				}
+
+				.navbar {
+					margin: auto; /* These 2 will center an element and give it a max width. */
+					color: white;
+					text-align: center;
+					max-width: 1000px;
+					
+				}
+
+				.navbar a{
+					background-color: blueviolet;
+					color: white;
+					box-shadow: 0 0 2px 2px purple inset;
+					width: 200px;
+				}
+
+				.navbar a:hover {
+  					background-color: #000;
+				}
+
+			       /* the name of the class that pertains to the title for the text boxes */
+				.form-group{  
+					color: white;
+                    max-width: 300px; /* It works. Does all of them. */
+                    justify-content: center; 
+				}
+
+
+
+		</style>
+
+	  </head>
+	  
+  <body> <!--FIXME: put everything in a jumbotron. See if that fixes the problem. Remember your layering techniques.-->
+	<!---complete unrelated to everything inside. it just doesnt work.-->
+
+	
+		<div class = "jumbotron"> <!--FIXME: image doesn't load in the jumbotron, but at least it's sized properly.-->
+			 <!--Might have had an extra div in there.--->
+			</header>	<!---You can take this out. You don't need it.-->
+				<div class="container text-center"><!--Center aligned image, location listed below-->
+				<img src="C:\Users\RichardBassin\Pictures\my corporate logo.png" />
+				</div>
+
+
+						<!-- A grey horizontal navbar that becomes vertical on small screens -->
+						<!-- Text is center aligned. -->
+
+				<nav class="navbar navbar-expand-sm justify-content-center">
+
+					<!-- Links -->
+					<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="myfirsthomepage.html">Main Menu</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">About Us</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">View our Merchandise</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Contact Us</a>
+						</li>
+                    </ul>
+				</nav>
+
+					  <!---Display all requests in a table-->c
+                <!--lets make a table and an ajax request. we will have an oject mapper populate it with a json.--->
+				<hr>
+				<h4>Requests</h4>
+				<table>
+					<thead>
+						<tr> <!--write the properties of the JSON here and add them to the rows of the table--->
+							<th>Request ID</th>
+							<th>Employee ID</th>
+							<th>Date Submitted</th>
+							<th>Cost</th>
+							<th>Course Description</th>
+							<th>Request Status</th>
+							<th>Passing Grade</th>
+							<th>Course Title</th>
+							<th>Urgency Status</th>
+							<th>Days Remaining Until Start</th>
+							<th>Days Missed</th>
+							<th>Fees</th>
+							<th>Course Type</th>
+							<th>Location</th>
+							<th>Start Date</th>
+							<th>Grading Format</th>
+							<th>Occupation ID</th>
+						</tr>
+					</thead>
+					<tbody id="bodied">
+					</tbody>
+				</table>
+					
+			
+			<footer class = "text-center fixed-bottom"><!--This class centers and keeps the footer at the bottom of the page.-->
+			© 2019 Richard Bassin and Devient Labs Incorporated. All rights reserved.
+			</footer>
+		</div>
+
+	
+
+		
+
+        <!---JS source for AJAX get request-->
+	  <script src = "requests.js"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
