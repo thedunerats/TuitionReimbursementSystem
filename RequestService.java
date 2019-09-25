@@ -65,13 +65,13 @@ public class RequestService {
 		
 		public void createRequest(int empId, Timestamp submissionDate, Timestamp startDate, double tuition, 
 				int passingGrade,  String courseTitle, int daysRemaining, int daysMissed, int fees, String courseType,
-				String location, String description) {
+				String location, String description, String gradingFormat, int occupationID) {
 			new RequestRepositoryImpl().createRequest(empId, submissionDate, startDate, tuition, passingGrade,
-					courseTitle, daysRemaining, daysMissed, fees, courseType, location, description);
+					courseTitle, daysRemaining, daysMissed, fees, courseType, location, description, gradingFormat, occupationID);
 		}
 		
-		public void createRequestStatus(int requestID) {
-			new RequestRepositoryImpl().createRequestStatus(requestID);
+		public void createRequestStatus(int requestID, int occupationID) {
+			new RequestRepositoryImpl().createRequestStatus(requestID, occupationID);
 		}
 		
 		public int getRequestByEmployee(int empID, Timestamp dateSubmitted) {
@@ -108,5 +108,13 @@ public class RequestService {
 		
 		public void autoApproveRequest(int requestID, int daysElapsed) {
 			new RequestRepositoryImpl().autoApproveRequest(requestID, daysElapsed);
+		}
+		
+		public List<ReimbursementRequest> getRequestsByRole(int roleID) {
+			return new RequestRepositoryImpl().getRequestsByRole(roleID);
+		}
+		
+		public List<RequestStatus> getRequestStatusByRole(int roleID) {
+			return new RequestRepositoryImpl().getRequestStatusByRole(roleID);
 		}
 }

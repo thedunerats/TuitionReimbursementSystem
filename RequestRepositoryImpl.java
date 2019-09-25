@@ -51,7 +51,9 @@ public class RequestRepositoryImpl implements RequestRepository {
 							set.getDouble(12),
 							set.getString(13),
 							set.getString(14),
-							set.getTimestamp(15)
+							set.getTimestamp(15),
+							set.getString(16),
+							set.getInt(17)
 							)
 								);
 
@@ -97,7 +99,8 @@ public class RequestRepositoryImpl implements RequestRepository {
 							set.getBoolean(9),
 							set.getString(10),
 							set.getString(11),
-							set.getString(12)
+							set.getString(12),
+							set.getInt(13)
 							)
 								);
 
@@ -275,7 +278,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 	//only need to pass in the date and time the request was submitted.
 	public void createRequest(int empId, Timestamp submissionDate, Timestamp startDate, double tuition, 
 			int passingGrade,  String courseTitle, int daysRemaining, int daysMissed, int fees, String courseType,
-			String location, String description) {
+			String location, String description, String gradingFormat, int occupationID) {
 		//we will create the future timestamp outside the method and ass it in. 
 		//status will be initialized to pending.
 		boolean urgencyStatus = false;
@@ -289,7 +292,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 		try {
 			conn = ConnectionFactory.getConnection(); 
 			//PUT A SEMI COLON INSIDE THE STATEMENT: will REMOVE IF ITS DOESNT WORK
-			stmt = conn.prepareStatement("insert into requests values(default, ?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			stmt = conn.prepareStatement("insert into requests values(default, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			// NOTE: When we set the parameterized values, note that the parameter index refers to the 
 			// number of the question mark for which you are setting that value.
 			//REMEMBER: the question marks are indexes. 1 = first question mark and so on.
@@ -307,6 +310,8 @@ public class RequestRepositoryImpl implements RequestRepository {
 			stmt.setString(12,courseType);
 			stmt.setString(13,location);
 			stmt.setTimestamp(14,startDate);
+			stmt.setString(15, gradingFormat);
+			stmt.setInt(16, occupationID);
 			stmt.execute();
 
 		} catch (SQLException ex) {
@@ -391,14 +396,14 @@ public class RequestRepositoryImpl implements RequestRepository {
 		// need a method to get occupation id as well. so that's on the to-do list.
 	
 	
-	public void createRequestStatus(int requestID) {
+	public void createRequestStatus(int requestID, int occupationID) {
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
 		try {
 			conn = ConnectionFactory.getConnection(); 
-			stmt = conn.prepareStatement("insert into request_status values(?,?,?,?,?,?,?,?,?,?,?,?)");
+			stmt = conn.prepareStatement("insert into request_status values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			// NOTE: When we set the parameterized values, note that the parameter index refers to the 
 			// number of the question mark for which you are setting that value.
 			//REMEMBER: the question marks are indexes. 1 = first question mark and so on.
@@ -414,6 +419,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 			stmt.setString(10,"None Provided");
 			stmt.setString(11,"None Provided");
 			stmt.setString(12,"None Provided");
+			stmt.setInt(13, occupationID);
 			stmt.execute();
 
 		} catch (SQLException ex) {
@@ -570,12 +576,8 @@ public class RequestRepositoryImpl implements RequestRepository {
 		
 		try {
 			conn = ConnectionFactory.getConnection(); 
-			// we can parameterize what we put in the columns with question marks.
-			// Use this with a prepared statement in order to prevent SQL injection.
-			// This helps avoid a SQL injection.
-			// You are not protected from SQL injection if you don't parameterize 
-			// the data.
-			//PUT A SEMI COLON INSIDE THE STATEMENT: will REMOVE IF ITS DOESNT WORK
+			// can be called by any role, will be called before the setDecider method is called.
+			// all done on the back end.
 			stmt = conn.prepareStatement("update request_status set request_decision = ? where request_id = ?)");
 			// NOTE: When we set the parameterized values, note that the parameter index refers to the 
 			// number of the question mark for which you are setting that value.
@@ -608,6 +610,9 @@ public class RequestRepositoryImpl implements RequestRepository {
 			break;
 		case 3:
 			Decider = "Department Head";
+			break;
+		case 4:
+			Decider = "Benefits Coordinator";
 			break;
 		}
 
@@ -783,7 +788,9 @@ public class RequestRepositoryImpl implements RequestRepository {
 							set.getDouble(12),
 							set.getString(13),
 							set.getString(14),
-							set.getTimestamp(15)
+							set.getTimestamp(15),
+							set.getString(16),
+							set.getInt(17)
 							)
 								);
 
@@ -830,7 +837,9 @@ public class RequestRepositoryImpl implements RequestRepository {
 							set.getDouble(12),
 							set.getString(13),
 							set.getString(14),
-							set.getTimestamp(15)
+							set.getTimestamp(15),
+							set.getString(16),
+							set.getInt(17)
 							)
 								);
 
@@ -875,7 +884,8 @@ public class RequestRepositoryImpl implements RequestRepository {
 							set.getBoolean(9),
 							set.getString(10),
 							set.getString(11),
-							set.getString(12)
+							set.getString(12),
+							set.getInt(13)
 							)
 								);
 
@@ -919,7 +929,8 @@ public class RequestRepositoryImpl implements RequestRepository {
 							set.getBoolean(9),
 							set.getString(10),
 							set.getString(11),
-							set.getString(12)
+							set.getString(12),
+							set.getInt(13)
 							)
 								);
 
@@ -935,5 +946,100 @@ public class RequestRepositoryImpl implements RequestRepository {
 		return requests;
 	}
 	// change password down the line. also, change urgency status to true.
+	
+	public List<ReimbursementRequest> getRequestsByRole(int roleID) { //FIXME: Don't use this one. Write a different one.
+		// TODO Auto-generated method stub
+		//only for higher-ups. regular employees can only see their own.
+		ArrayList<ReimbursementRequest> requests = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet set = null;
+		
+		try {
+			conn = ConnectionFactory.getConnection();
+			stmt = conn.prepareStatement("select from requests where occupation_id < ?");
+			stmt.setInt(1,roleID);
+			set = stmt.executeQuery();
+			//FIXME: we need different methods. The entries in the DB do not match the ones in Java.
+			while (set.next()) {
+				requests.add(
+						new ReimbursementRequest (
+							set.getInt(1),
+							set.getInt(2),
+							set.getTimestamp(3),
+							set.getDouble(4),
+							set.getString(5),
+							set.getString(6),
+							set.getInt(7),
+							set.getString(8),
+							set.getBoolean(9),
+							set.getInt(10),
+							set.getInt(11),
+							set.getDouble(12),
+							set.getString(13),
+							set.getString(14),
+							set.getTimestamp(15),
+							set.getString(16),
+							set.getInt(17)
+							)
+								);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionClosers.closeConnection(conn);
+			ConnectionClosers.closeResultSet(set);
+			ConnectionClosers.closeStatement(stmt);
+		}
+		
+		return requests;
+	}
+	
+	public List<RequestStatus> getRequestStatusByRole(int roleID){
+		ArrayList<RequestStatus> requests = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet set = null;
+		
+		//not available to regular employees.
+		
+		try {
+			conn = ConnectionFactory.getConnection();
+			stmt = conn.prepareStatement("select from request_status where occupation_id < ?");
+			stmt.setInt(1,roleID);
+			set = stmt.executeQuery();
+			
+			//FIXME: we need different methods. The entries in the DB do not match the ones in Java.
+			while (set.next()) {
+				requests.add(
+						new RequestStatus (
+							set.getInt(1),
+							set.getString(2),
+							set.getString(3),
+							set.getString(4),
+							set.getString(5),
+							set.getString(6),
+							set.getDouble(7),
+							set.getString(8),
+							set.getBoolean(9),
+							set.getString(10),
+							set.getString(11),
+							set.getString(12),
+							set.getInt(13)
+							)
+								);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionClosers.closeConnection(conn);
+			ConnectionClosers.closeResultSet(set);
+			ConnectionClosers.closeStatement(stmt);
+		}
+		
+		return requests;
+	}
 	
 }

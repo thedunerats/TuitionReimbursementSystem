@@ -29,9 +29,9 @@ public interface RequestRepository {
 	
 	void createRequest(int empId, Timestamp submissionDate, Timestamp startDate, double tuition, 
 			int passingGrade,  String courseTitle, int daysRemaining, int daysMissed, int fees, String courseType,
-			String location, String description);
+			String location, String description, String gradingFormat, int occupationID);
 	
-	void createRequestStatus(int requestID);
+	void createRequestStatus(int requestID, int occupationID);
 	
 	int getRequestByEmployee(int empID, Timestamp dateSubmitted);
 	
@@ -51,5 +51,8 @@ public interface RequestRepository {
 	
 	void autoApproveRequest(int requestID, int daysElapsed);
 	
+	List<ReimbursementRequest> getRequestsByRole(int roleID);
+	
+	List<RequestStatus> getRequestStatusByRole(int roleID);
 	
 }
