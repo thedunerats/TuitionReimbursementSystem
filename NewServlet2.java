@@ -56,6 +56,7 @@ public class NewServlet2 extends HttpServlet {
 			ObjectMapper imTheMap = new ObjectMapper();
 		    switch (posID) {
 		    case 1:
+		    	System.out.println("about to parse");
 		    	response.sendRedirect("http://localhost:8084/Test/Outputs/requests.html"); 
 		    	response.setStatus(200);
 				response.getOutputStream().write(imTheMap.writeValueAsBytes(rs.getAllRequestsperEmployee(empID))); 
