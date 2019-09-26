@@ -42,8 +42,8 @@ public class NewServlet2 extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		RequestService rs = new RequestService();
 		String flag = request.getParameter("custID");
-		switch (flag) {
-		case "1111":
+		//switch (flag) using ajax, so we don't need this. put somewhere else when necessary.
+		//case "1111":
 			// view requests
 			// will be different for different roles
 		    HttpSession session = request.getSession();
@@ -56,9 +56,9 @@ public class NewServlet2 extends HttpServlet {
 			ObjectMapper imTheMap = new ObjectMapper();
 		    switch (posID) {
 		    case 1:
+		    	response.sendRedirect("http://localhost:8084/Test/Outputs/requests.html"); 
+		    	response.setStatus(200);
 				response.getOutputStream().write(imTheMap.writeValueAsBytes(rs.getAllRequestsperEmployee(empID))); 
-				response.setStatus(200);
-				response.sendRedirect("http://localhost:8084/Test/Outputs/requests.html"); 
 		    		// only their requests
 		    	break;
 		    case 2: // all employees and their own
@@ -74,7 +74,7 @@ public class NewServlet2 extends HttpServlet {
 		    	
 		    	break;
 		    }
-		}
+		//}
 
 		//We use the print method to write something to the response body.
 		// You can use JSON or XML to complete your project.

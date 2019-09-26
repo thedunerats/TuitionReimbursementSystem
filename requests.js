@@ -1,5 +1,5 @@
 function getRequests(){
-	let url = "/ServletDemo/getflix/api/movies"; //FIXME: change this.
+	let url = "../NewServlet2"; //FIXME: change this.
 	let xhr = new XMLHttpRequest();
 	let body = document.getElementById("bodied");
 	
