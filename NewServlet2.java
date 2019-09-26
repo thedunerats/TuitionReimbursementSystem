@@ -1,7 +1,6 @@
 package proj1web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import proj1.service.RequestService;
-import proj1.model.*;
-import java.sql.Timestamp;
 
 
 
@@ -42,28 +41,43 @@ public class NewServlet2 extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		RequestService rs = new RequestService();
-		PrintWriter write = response.getWriter();
-		//view requests: 
-		//String uri = request.getRequestURI().substring(request.getContextPath().length());
-		
-		switch(uri) {
-			case "/viewrequests":
-				//filter first, then put into a json to send to webpage
+		String flag = request.getParameter("custID");
+		switch (flag) {
+		case "1111":
+			// view requests
+			// will be different for different roles
+		    HttpSession session = request.getSession();
+		    
+		    int empID = (Integer)session.getAttribute("employeeID");
+		    int posID = (Integer)session.getAttribute("positionID");
+		    System.out.println(empID); //testing
+		    // set the output to a JSON
+		    
+		    switch (posID) {
+		    case 1:
+				response.setContentType("application/json");
+				ObjectMapper imTheMap = new ObjectMapper();
 				
-				//view requests
-			case "/devientlabsloginsuccessful":
-				//call the requesthelper in here
-				//HttpSession session = 
-				//int empRole = session.getAttribute(posID); 
-				
-				break;
+				// put in the logic for AJAX
 
+				response.getOutputStream().write(imTheMap.writeValueAsBytes(ms.getAllMovies())); //FIX
+		    		// only their requests
+		    	break;
+		    case 2: // all employees
+		    	
+		    	break;
+		    case 3: //employees and supervisors
+		    	
+		    	break;
+		    case 4: // all of them
+		    	
+		    	break;
+		    }
 		}
-	   // final RequestHelper rh = new RequestHelper();
-		response.setContentType("text/plain");
+
 		//We use the print method to write something to the response body.
 		// You can use JSON or XML to complete your project.
-		write.print(rs.verifyLogin("thefirstuser","badpassword")); //for now. may change it later.
+
 	}
 
 	/**
@@ -108,8 +122,6 @@ public class NewServlet2 extends HttpServlet {
 		case "3487":	
 			
 		    HttpSession session = request.getSession();
-		    System.out.println(session.getAttribute("positionID"));
-		    System.out.println(session.getAttribute("employeeID"));
 		    
 		    int empID = (Integer)session.getAttribute("employeeID");
 		    int posID = (Integer)session.getAttribute("positionID");
@@ -153,9 +165,12 @@ public class NewServlet2 extends HttpServlet {
 		 
 		    // calculate hours minutes and seconds
 		    int days = seconds / (3600 * 24); // will be days until course start
+		    System.out.println(empID + "\n"+ timestamp1 + timestamp2 + "\n" + cost + passingGrade +
+					title + days + missedDays+ 0 + courseType + location + description + gradingFormat +
+					posID);
+		    System.out.println(days);
+		    System.out.println(missedDays);
 		    
-
-
 
 			// store in db
 			// need to get the ids, then put them here rs1.createRequest(); you need the occupationID from the session.
@@ -168,6 +183,7 @@ public class NewServlet2 extends HttpServlet {
 			rs.createRequestStatus(reqID, posID);
 			// maybe send redirect afterward
 			response.sendRedirect("http://localhost:8084/Test/LoggedIn/devientlabsloginsuccessful.html"); 
+			
 			
 		}
 		
