@@ -110,8 +110,11 @@ public class NewServlet2 extends HttpServlet {
 		    HttpSession session = request.getSession();
 		    System.out.println(session.getAttribute("positionID"));
 		    System.out.println(session.getAttribute("employeeID"));
-			// get all the input form fields
-			/*
+		    
+		    int empID = (Integer)session.getAttribute("employeeID");
+		    int posID = (Integer)session.getAttribute("positionID");
+		    System.out.println(empID); //testing
+		    
 			String title = request.getParameter("coursetitle");
 			String courseType = request.getParameter("coursetype");
 			String location = request.getParameter("courselocation");
@@ -152,19 +155,23 @@ public class NewServlet2 extends HttpServlet {
 		    int days = seconds / (3600 * 24); // will be days until course start
 		    
 
-			*/
-			}
-		}
+
+
 			// store in db
 			// need to get the ids, then put them here rs1.createRequest(); you need the occupationID from the session.
-			//rs.createRequest(session.getAttribute("employeeID"), timestamp1, timestamp2, cost, passingGrade, 
-				//	title, days, missedDays, 0, courseType, location, description, gradingFormat,
-					//session.getAttribute(positionID));
+			rs.createRequest(empID, timestamp1, timestamp2, cost, passingGrade, 
+					title, days, missedDays, 0, courseType, location, description, gradingFormat,
+					posID);
+			//need request ID
+			int reqID = rs.getRequestByEmployee(empID, timestamp1);
 			//also need to create a request status from the request id.
-
+			rs.createRequestStatus(reqID, posID);
 			// maybe send redirect afterward
-			 
-			 
+			response.sendRedirect("http://localhost:8084/Test/LoggedIn/devientlabsloginsuccessful.html"); 
+			
+		}
+		
+	}
 	
 	
 }
