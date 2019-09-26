@@ -52,19 +52,20 @@ public class NewServlet2 extends HttpServlet {
 		    int posID = (Integer)session.getAttribute("positionID");
 		    System.out.println(empID); //testing
 		    // set the output to a JSON
-		    
+			response.setContentType("application/json");
+			ObjectMapper imTheMap = new ObjectMapper();
 		    switch (posID) {
 		    case 1:
-				response.setContentType("application/json");
-				ObjectMapper imTheMap = new ObjectMapper();
-				
-				// put in the logic for AJAX
-
-				response.getOutputStream().write(imTheMap.writeValueAsBytes(ms.getAllMovies())); //FIX
+				response.getOutputStream().write(imTheMap.writeValueAsBytes(rs.getAllRequestsperEmployee(empID))); 
+				response.setStatus(200);
+				response.sendRedirect("http://localhost:8084/Test/Outputs/requests.html"); 
 		    		// only their requests
 		    	break;
-		    case 2: // all employees
-		    	
+		    case 2: // all employees and their own
+		    	response.getOutputStream().write(imTheMap.writeValueAsBytes(rs.getAllRequestsperEmployee(empID)));
+		    	response.getOutputStream().write(imTheMap.writeValueAsBytes(rs.getRequestStatusByRole(posID)));
+		    	response.setStatus(200);
+		    	response.sendRedirect("http://localhost:8084/Test/Outputs/requests.html"); 
 		    	break;
 		    case 3: //employees and supervisors
 		    	
