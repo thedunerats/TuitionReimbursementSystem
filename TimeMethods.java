@@ -6,7 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public interface TimeMethods {
+public class TimeMethods {
 
 	public static Timestamp getCurrentTime() {
 		 java.util.Date date = new java.util.Date();
@@ -35,6 +35,17 @@ public interface TimeMethods {
 		Date lFromDate1 = datetimeFormatter1.parse(date1);
 		Timestamp fromTS1 = new Timestamp(lFromDate1.getTime());
 		return fromTS1;
+	}		
+
+
+public static void main(String[] args) {
+	Timestamp t1 = getCurrentTime();
+	try {
+		Timestamp t2 = getTimeFromInput(2019,12,15);
+		int test = numberOfDays(t1,t2);
+		System.out.println(test);
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
-	
+}
 }
