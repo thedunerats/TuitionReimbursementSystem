@@ -106,7 +106,12 @@ public class NewServlet2 extends HttpServlet {
 		
 		//make a new request
 		case "3487":	
+			
+		    HttpSession session = request.getSession();
+		    System.out.println(session.getAttribute("positionID"));
+		    System.out.println(session.getAttribute("employeeID"));
 			// get all the input form fields
+			/*
 			String title = request.getParameter("coursetitle");
 			String courseType = request.getParameter("coursetype");
 			String location = request.getParameter("courselocation");
@@ -145,18 +150,21 @@ public class NewServlet2 extends HttpServlet {
 		 
 		    // calculate hours minutes and seconds
 		    int days = seconds / (3600 * 24); // will be days until course start
-		System.out.println(session.getAttribute(positionID),getAttribute(employeeID));
 		    
+
+			*/
+			}
+		}
 			// store in db
 			// need to get the ids, then put them here rs1.createRequest(); you need the occupationID from the session.
-			rs.createRequest(session.getAttribute("employeeID"), timestamp1, timestamp2, cost, passingGrade, 
-					title, days, missedDays, 0, courseType, location, description, gradingFormat,
-					session.getAttribute(positionID));
+			//rs.createRequest(session.getAttribute("employeeID"), timestamp1, timestamp2, cost, passingGrade, 
+				//	title, days, missedDays, 0, courseType, location, description, gradingFormat,
+					//session.getAttribute(positionID));
 			//also need to create a request status from the request id.
 
 			// maybe send redirect afterward
-			 * */
 			 
-	}
-	}
+			 
+	
+	
 }
