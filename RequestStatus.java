@@ -14,163 +14,108 @@ public class RequestStatus {
 	private String supervisorDecision;
 	private String depHeadDecision;
 	private String benCoDecision;
-	
-	
-
-
-	public RequestStatus(int requestID, String decision, String decisionMaker, String extraEmployeeInfo,
-			String extraSupervisorInfo, String extraHeadInfo, double amountAwarded, String reasonForDecision,
-			boolean isExceeding, String supervisorDecision, String depHeadDecision, String benCoDecision) {
-		super();
-		this.requestID = requestID;
-		Decision = decision;
-		this.decisionMaker = decisionMaker;
-		this.extraEmployeeInfo = extraEmployeeInfo;
-		this.extraSupervisorInfo = extraSupervisorInfo;
-		this.extraHeadInfo = extraHeadInfo;
-		this.amountAwarded = amountAwarded;
-		this.reasonForDecision = reasonForDecision;
-		this.isExceeding = isExceeding;
-		this.supervisorDecision = supervisorDecision;
-		this.depHeadDecision = depHeadDecision;
-		this.benCoDecision = benCoDecision;
-	}
-
-
+	private int occupationID;
 	public RequestStatus() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
-	
-
-
+	public RequestStatus(int requestID, String decision, String decisionMaker, String extraEmployeeInfo,
+			String extraSupervisorInfo, String extraHeadInfo, double amountAwarded, String reasonForDecision,
+			boolean isExceeding, String supervisorDecision, String depHeadDecision, String benCoDecision,
+			int occupationID) {
+		super();
+		this.requestID = requestID;
+		Decision = decision;
+		this.decisionMaker = decisionMaker;
+		this.extraEmployeeInfo = extraEmployeeInfo;
+		this.extraSupervisorInfo = extraSupervisorInfo;
+		this.extraHeadInfo = extraHeadInfo;
+		this.amountAwarded = amountAwarded;
+		this.reasonForDecision = reasonForDecision;
+		this.isExceeding = isExceeding;
+		this.supervisorDecision = supervisorDecision;
+		this.depHeadDecision = depHeadDecision;
+		this.benCoDecision = benCoDecision;
+		this.occupationID = occupationID;
+	}
 	public int getRequestID() {
 		return requestID;
 	}
-
-
 	public void setRequestID(int requestID) {
 		this.requestID = requestID;
 	}
-
-
 	public String getDecision() {
 		return Decision;
 	}
-
-
 	public void setDecision(String decision) {
 		Decision = decision;
 	}
-
-
 	public String getDecisionMaker() {
 		return decisionMaker;
 	}
-
-
 	public void setDecisionMaker(String decisionMaker) {
 		this.decisionMaker = decisionMaker;
 	}
-
-
 	public String getExtraEmployeeInfo() {
 		return extraEmployeeInfo;
 	}
-
-
 	public void setExtraEmployeeInfo(String extraEmployeeInfo) {
 		this.extraEmployeeInfo = extraEmployeeInfo;
 	}
-
-
 	public String getExtraSupervisorInfo() {
 		return extraSupervisorInfo;
 	}
-
-
 	public void setExtraSupervisorInfo(String extraSupervisorInfo) {
 		this.extraSupervisorInfo = extraSupervisorInfo;
 	}
-
-
 	public String getExtraHeadInfo() {
 		return extraHeadInfo;
 	}
-
-
 	public void setExtraHeadInfo(String extraHeadInfo) {
 		this.extraHeadInfo = extraHeadInfo;
 	}
-
-
 	public double getAmountAwarded() {
 		return amountAwarded;
 	}
-
-
 	public void setAmountAwarded(double amountAwarded) {
 		this.amountAwarded = amountAwarded;
 	}
-
-
 	public String getReasonForDecision() {
 		return reasonForDecision;
 	}
-
-
 	public void setReasonForDecision(String reasonForDecision) {
 		this.reasonForDecision = reasonForDecision;
 	}
-
-
 	public boolean isExceeding() {
 		return isExceeding;
 	}
-
-
 	public void setExceeding(boolean isExceeding) {
 		this.isExceeding = isExceeding;
 	}
-
-
 	public String getSupervisorDecision() {
 		return supervisorDecision;
 	}
-
-
 	public void setSupervisorDecision(String supervisorDecision) {
 		this.supervisorDecision = supervisorDecision;
 	}
-
-
 	public String getDepHeadDecision() {
 		return depHeadDecision;
 	}
-
-
 	public void setDepHeadDecision(String depHeadDecision) {
 		this.depHeadDecision = depHeadDecision;
 	}
-
-
 	public String getBenCoDecision() {
 		return benCoDecision;
 	}
-
-
 	public void setBenCoDecision(String benCoDecision) {
 		this.benCoDecision = benCoDecision;
 	}
-
-
-
-
-	
-
-
+	public int getOccupationID() {
+		return occupationID;
+	}
+	public void setOccupationID(int occupationID) {
+		this.occupationID = occupationID;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -186,13 +131,12 @@ public class RequestStatus {
 		result = prime * result + ((extraHeadInfo == null) ? 0 : extraHeadInfo.hashCode());
 		result = prime * result + ((extraSupervisorInfo == null) ? 0 : extraSupervisorInfo.hashCode());
 		result = prime * result + (isExceeding ? 1231 : 1237);
+		result = prime * result + occupationID;
 		result = prime * result + ((reasonForDecision == null) ? 0 : reasonForDecision.hashCode());
 		result = prime * result + requestID;
 		result = prime * result + ((supervisorDecision == null) ? 0 : supervisorDecision.hashCode());
 		return result;
 	}
-
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -241,6 +185,8 @@ public class RequestStatus {
 			return false;
 		if (isExceeding != other.isExceeding)
 			return false;
+		if (occupationID != other.occupationID)
+			return false;
 		if (reasonForDecision == null) {
 			if (other.reasonForDecision != null)
 				return false;
@@ -255,15 +201,16 @@ public class RequestStatus {
 			return false;
 		return true;
 	}
-
-
 	@Override
 	public String toString() {
 		return "RequestStatus [requestID=" + requestID + ", Decision=" + Decision + ", decisionMaker=" + decisionMaker
 				+ ", extraEmployeeInfo=" + extraEmployeeInfo + ", extraSupervisorInfo=" + extraSupervisorInfo
 				+ ", extraHeadInfo=" + extraHeadInfo + ", amountAwarded=" + amountAwarded + ", reasonForDecision="
 				+ reasonForDecision + ", isExceeding=" + isExceeding + ", supervisorDecision=" + supervisorDecision
-				+ ", depHeadDecision=" + depHeadDecision + ", benCoDecision=" + benCoDecision + "]";
-	}	
+				+ ", depHeadDecision=" + depHeadDecision + ", benCoDecision=" + benCoDecision + ", occupationID="
+				+ occupationID + "]";
+	}
+	
+	
 
 }

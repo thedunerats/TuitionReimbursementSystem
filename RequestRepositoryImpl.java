@@ -43,7 +43,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 							set.getDouble(4),
 							set.getString(5),
 							set.getString(6),
-							set.getInt(7),
+							set.getString(7),
 							set.getString(8),
 							set.getBoolean(9),
 							set.getInt(10),
@@ -277,7 +277,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 	// we will call the method to calculate the remaining days in advance and pass them in. we
 	//only need to pass in the date and time the request was submitted.
 	public void createRequest(int empId, Timestamp submissionDate, Timestamp startDate, double tuition, 
-			int passingGrade,  String courseTitle, int daysRemaining, int daysMissed, int fees, String courseType,
+			String passingGrade,  String courseTitle, int daysRemaining, int daysMissed, int fees, String courseType,
 			String location, String description, String gradingFormat, int occupationID) {
 		//we will create the future timestamp outside the method and ass it in. 
 		//status will be initialized to pending.
@@ -301,7 +301,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 			stmt.setDouble(3, tuition);
 			stmt.setString(4,description);
 			stmt.setString(5,requestStatus);
-			stmt.setInt(6,passingGrade);
+			stmt.setString(6,passingGrade);
 			stmt.setString(7,courseTitle);
 			stmt.setBoolean(8,urgencyStatus);
 			stmt.setInt(9,daysRemaining);
@@ -455,7 +455,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 			// You are not protected from SQL injection if you don't parameterize 
 			// the data.
 			//PUT A SEMI COLON INSIDE THE STATEMENT: will REMOVE IF ITS DOESNT WORK
-			stmt = conn.prepareStatement("select position_id from requests where employee_id = ?");
+			stmt = conn.prepareStatement("select position_id from employee_info where employee_id = ?");
 			// NOTE: When we set the parameterized values, note that the parameter index refers to the 
 			// number of the question mark for which you are setting that value.
 			//REMEMBER: the question marks are indexes. 1 = first question mark and so on.
@@ -780,7 +780,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 							set.getDouble(4),
 							set.getString(5),
 							set.getString(6),
-							set.getInt(7),
+							set.getString(7),
 							set.getString(8),
 							set.getBoolean(9),
 							set.getInt(10),
@@ -829,7 +829,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 							set.getDouble(4),
 							set.getString(5),
 							set.getString(6),
-							set.getInt(7),
+							set.getString(7),
 							set.getString(8),
 							set.getBoolean(9),
 							set.getInt(10),
@@ -970,7 +970,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 							set.getDouble(4),
 							set.getString(5),
 							set.getString(6),
-							set.getInt(7),
+							set.getString(7),
 							set.getString(8),
 							set.getBoolean(9),
 							set.getInt(10),

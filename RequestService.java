@@ -64,7 +64,7 @@ public class RequestService {
 		}
 		
 		public void createRequest(int empId, Timestamp submissionDate, Timestamp startDate, double tuition, 
-				int passingGrade,  String courseTitle, int daysRemaining, int daysMissed, int fees, String courseType,
+				String passingGrade,  String courseTitle, int daysRemaining, int daysMissed, int fees, String courseType,
 				String location, String description, String gradingFormat, int occupationID) {
 			new RequestRepositoryImpl().createRequest(empId, submissionDate, startDate, tuition, passingGrade,
 					courseTitle, daysRemaining, daysMissed, fees, courseType, location, description, gradingFormat, occupationID);

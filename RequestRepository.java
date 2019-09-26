@@ -28,7 +28,7 @@ public interface RequestRepository {
 	void setEmployeeInfo(int id, String firstName, String lastName, String occupation);
 	
 	void createRequest(int empId, Timestamp submissionDate, Timestamp startDate, double tuition, 
-			int passingGrade,  String courseTitle, int daysRemaining, int daysMissed, int fees, String courseType,
+			String passingGrade,  String courseTitle, int daysRemaining, int daysMissed, int fees, String courseType,
 			String location, String description, String gradingFormat, int occupationID);
 	
 	void createRequestStatus(int requestID, int occupationID);
